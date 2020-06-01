@@ -1,0 +1,86 @@
+<main>
+  
+  <h1>Angular Pagination</h1>
+	<section>
+    <div class="container">
+  <div class="row">
+    <div class="search-hero">
+      Serch Anything <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="  Start searching for data">
+    </div>
+     
+  </div>
+ 
+</div>
+	<ul class="pagination">
+    	<li  
+				[ngClass]="1 === 1 ? 'pagination__item pagination__item--active' : 'pagination__item'">
+				<a (click)="under">under 100</a>
+			</li>
+  </ul>
+  	<ul class="pagination">
+    	<li  
+				[ngClass]="1 === 1 ? 'pagination__item pagination__item--active' : 'pagination__item'">
+				<a (click)="until()">100 until 200</a>
+			</li>
+  </ul>
+  <ul class="pagination">
+    	<li  
+				[ngClass]="1 === 1 ? 'pagination__item pagination__item--active' : 'pagination__item'">
+				<a (click)="above()">above 200</a>
+			</li>
+  </ul>
+<ul class="pagination">
+    	<li  
+				[ngClass]="1 === 1 ? 'pagination__item pagination__item--active' : 'pagination__item'">
+				<a (click)="reset()">Reset</a>
+				</li>
+  </ul>
+ 	 <div>
+	<aside>Selected Item: {{selectedItem}}</aside>
+    </div>
+   
+     	
+		
+
+		<!-- items being paged -->
+		<ul class="items">
+			<li *ngFor="let item of pagedItems | filter:searchText"
+				[ngClass]="selectedItem == item.name ? 'items__item items__item--active' : 'items__item'" (click)="setItem(item)">
+				<h1 >Name:{{item.name}}</h1>
+				<h3>Item   :</h3> 
+				<h3>Price : {{item.price}}</h3> 
+           <div [innerHTML]="item.custom_attributes[0]['value']"></div>
+			</li>
+
+    
+		</ul>
+
+		<!-- pager -->
+		<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+			<li
+				[ngClass]="pager.currentPage === 1 ? 'pagination__item pagination__item--disabled' : 'pagination__item'">
+				<a (click)="setPage(1)">First</a>
+			</li>
+			<li
+				[ngClass]="pager.currentPage === 1 ? 'pagination__item pagination__item--disabled' : 'pagination__item'">
+				<a (click)="setPage(pager.currentPage - 1)">Previous</a>
+			</li>
+
+			<!-- pages -->
+			<li *ngFor="let page of pager.pages"
+				[ngClass]="pager.currentPage === page ? 'pagination__item pagination__item--active' : 'pagination__item'">
+				<a (click)="setPage(page)">{{page}}</a>
+			</li>
+
+			<li
+				[ngClass]="pager.currentPage === pager.totalPages ? 'pagination__item pagination__item--disabled' : 'pagination__item'">
+				<a (click)="setPage(pager.currentPage + 1)">Next</a>
+			</li>
+			<li
+				[ngClass]="pager.currentPage === pager.totalPages ? 'pagination__item pagination__item--disabled' : 'pagination__item'">
+				<a (click)="setPage(pager.totalPages)">Last</a>
+			</li>
+		</ul>
+	</section>
+  
+</main>
