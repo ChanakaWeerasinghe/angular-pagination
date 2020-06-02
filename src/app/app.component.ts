@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   pager: any = {};
   pagedItems: any[];
   selectedItem: string = "Item 1";
-
+  isReset = false;
   title = "Angular Search Using ng2-search-filter";
   searchText;
 
@@ -27,9 +27,11 @@ export class AppComponent implements OnInit {
   }
 
   setPage(page: number) {
-    if (this.pager) {
-      if (page < 1 || page > this.pager.totalPages) {
-        return;
+    if (!this.isReset) {
+      if (this.pager) {
+        if (page < 1 || page > this.pager.totalPages) {
+          return;
+        }
       }
     }
 
@@ -54,6 +56,7 @@ export class AppComponent implements OnInit {
   }
 
   reset() {
+    this.isReset = !this.isReset;
     this.getData();
   }
   under() {
